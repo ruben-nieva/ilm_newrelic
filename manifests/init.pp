@@ -44,5 +44,18 @@
 #
 class ilm_newrelic {
 
+$newrelic_license = hiera("ilm_newrelic_license::${::environment}", {})
+
+#if $environment == 'production' {
+#  $newrelic_license = hiera("ilm_newrelic_license::production")
+#}
+#else{
+#  $newrelic_license = hiera("ilm_newrelic_license::qa")
+#}
+
+class {'newrelic::server::linux':
+       newrelic_license_key => $newrelic_license,
+}
+
 
 }
